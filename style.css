@@ -4,14 +4,17 @@ body {
   font-family: 'Segoe UI', sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;  /* ✅ so content starts at top, not center */
   height: 100vh;
   margin: 0;
+  overflow-y: auto;         /* ✅ allows scrolling for large galleries */
 }
 
 .container {
   text-align: center;
-  width: 90vw;
+  width: 95vw;              /* ✅ full use of screen width */
+  max-width: 1400px;        /* keeps layout tidy on large screens */
+  padding: 20px 0;
 }
 
 .logo {
