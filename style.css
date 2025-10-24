@@ -55,7 +55,8 @@ body {
 
 .gallery img {
   width: 100%;
-  max-width: 450px;
+  height: 220px;              /* fixed thumbnail height for clean rows */
+  object-fit: cover;          /* crops edges to fill area */
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease, opacity 0.3s ease;
