@@ -1,1 +1,0 @@
-Place your epr22.png logo here.
