@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EPR2 Photo Gallery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <img src="assets/epr22.png" alt="EPR2 Logo" class="logo">
+    <h1>Photo Gallery</h1>
+    <div id="gallery" class="gallery"></div>
+    <a href="index.html" class="menu-button" style="margin-top: 40px;">⬅ Back to Menu</a>
+  </div>
+
+  <div id="lightbox" class="lightbox" style="display:none;">
+    <span class="close-btn" onclick="closeLightbox()">✖</span>
+    <img id="lightbox-img" src="" alt="Preview">
+    <a href="#" class="back-button" onclick="closeLightbox(); return false;">⬅ Back to Gallery</a>
+  </div>
+
+  <script>
+    const galleryContainer = document.getElementById('gallery');
+    const repoAPI = 'https://api.github.com/repos/epr2-GF/demotablet/contents/assets/gallery';
+
+    async function loadImages() {
+      try {
+        const response = await fetch(repoAPI);
+        const data = await response.json();
+
+        data.forEach(file => {
+          if (file.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            const img = document.createElement('img');
+            img.src = file.download_url;
+            img.alt = file.name;
+            img.onclick = () => openLightbox(file.download_url);
+            galleryContainer.appendChild(img);
+          }
+        });
+      } catch (error) {
+        console.error('Error loading images:', error);
+        galleryContainer.innerHTML = '<p>Unable to load images from GitHub.</p>';
+      }
+    }
+
+    function openLightbox(src) {
+      document.getElementById('lightbox').style.display = 'flex';
+      document.getElementById('lightbox-img').src = src;
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    loadImages();
+  </script>
+</body>
+</html>
